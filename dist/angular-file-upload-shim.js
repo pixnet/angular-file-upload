@@ -147,12 +147,16 @@ if (window.XMLHttpRequest) {
                             if (err) Object.defineProperty(xhr, 'err', {get: function () {
                                 return err
                             }, configurable: true});
-                            if (xhr.onload) {
-                                // for angular 1.3.x
-                                xhr.onload();
-                            } else if (xhr.onreadystatechange) {
-                                // for angular 1.2.x
-                                xhr.onreadystatechange();
+                            try {
+                                if (xhr.onload) {
+                                    // for angular 1.3.x
+                                    xhr.onload();
+                                } else if (xhr.onreadystatechange) {
+                                    // for angular 1.2.x
+                                    xhr.onreadystatechange();
+                                }
+                            } catch (error) {
+                                // catch xhr undefined error
                             }
 						},
 						fileprogress: function(e) {
