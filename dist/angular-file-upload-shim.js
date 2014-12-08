@@ -123,13 +123,7 @@ if (window.XMLHttpRequest) {
 							Object.defineProperty(xhr, 'response', {get: function() {return resp}});
 							if (err) Object.defineProperty(xhr, 'err', {get: function() {return err}});
 							xhr.__fileApiXHR = fileApiXHR;
-                            if (xhr.onload) {
-                                // for angular 1.3.x
-                                xhr.onload();
-                            } else if (xhr.onreadystatechange) {
-                                // for angular 1.2.x
-                                xhr.onreadystatechange();
-                            }
+							if (xhr.onreadystatechange) xhr.onreadystatechange();
 						},
 						fileprogress: function(e) {
 							e.target = xhr;
