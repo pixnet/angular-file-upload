@@ -107,57 +107,57 @@ if (window.XMLHttpRequest) {
 						jsonp: false, //removes the callback form param
 						cache: true, //removes the ?fileapiXXX in the url
 						complete: function(err, fileApiXHR) {
-							xhr.__completed = true;
-							if (!err && xhr.__listeners['load']) {
-								xhr.__listeners['load']({type: 'load', loaded: xhr.__loaded, total: xhr.__total, target: xhr, lengthComputable: true});
-							}
-							if (!err && xhr.__listeners['loadend']) {
-								xhr.__listeners['loadend']({type: 'loadend', loaded: xhr.__loaded, total: xhr.__total, target: xhr, lengthComputable: true});
-							}
+                            xhr.__completed = true;
+                            if (!err && xhr.__listeners['load']) {
+                                xhr.__listeners['load']({type: 'load', loaded: xhr.__loaded, total: xhr.__total, target: xhr, lengthComputable: true});
+                            }
+                            if (!err && xhr.__listeners['loadend']) {
+                                xhr.__listeners['loadend']({type: 'loadend', loaded: xhr.__loaded, total: xhr.__total, target: xhr, lengthComputable: true});
+                            }
 
-							if (err === 'abort' && xhr.__listeners['abort']) {
-								xhr.__listeners['abort']({type: 'abort', loaded: xhr.__loaded, total: xhr.__total, target: xhr, lengthComputable: true});
-							}
-							if (fileApiXHR.status !== undefined) {
-								Object.defineProperty(xhr, 'status', {get: function () {
-									return (fileApiXHR.status == 0 && err && err !== 'abort') ? 500 : fileApiXHR.status
-								}, configurable: true});
-							}
-							if (fileApiXHR.statusText !== undefined) {
-								Object.defineProperty(xhr, 'statusText', {get: function () {
-									return fileApiXHR.statusText;
-								}, configurable: true})
-							}
-							;
-							Object.defineProperty(xhr, 'readyState', {get: function () {
-								return 4;
-							}, configurable: true});
-							if (fileApiXHR.response !== undefined) {
-								Object.defineProperty(xhr, 'response', {get: function () {
-									return fileApiXHR.response
-								}});
-							}
-							var resp = fileApiXHR.responseText || (err && fileApiXHR.status == 0 && err !== 'abort' ? err : undefined);
-							Object.defineProperty(xhr, 'responseText', {get: function () {
-								return resp
-							}, configurable: true});
-							Object.defineProperty(xhr, 'response', {get: function () {
-								return resp
-							}, configurable: true});
-							if (err) Object.defineProperty(xhr, 'err', {get: function () {
-								return err
-							}, configurable: true});
-							try {
-								if (xhr.onload) {
-									// for angular 1.3.x
-									xhr.onload();
-								} else if (xhr.onreadystatechange) {
-									// for angular 1.2.x
-									xhr.onreadystatechange();
-								}
-							} catch (error) {
-								// catch xhr undefined error
-							}
+                            if (err === 'abort' && xhr.__listeners['abort']) {
+                                xhr.__listeners['abort']({type: 'abort', loaded: xhr.__loaded, total: xhr.__total, target: xhr, lengthComputable: true});
+                            }
+                            if (fileApiXHR.status !== undefined) {
+                                Object.defineProperty(xhr, 'status', {get: function () {
+                                    return (fileApiXHR.status == 0 && err && err !== 'abort') ? 500 : fileApiXHR.status
+                                }, configurable: true});
+                            }
+                            if (fileApiXHR.statusText !== undefined) {
+                                Object.defineProperty(xhr, 'statusText', {get: function () {
+                                    return fileApiXHR.statusText;
+                                }, configurable: true})
+                            }
+                            ;
+                            Object.defineProperty(xhr, 'readyState', {get: function () {
+                                return 4;
+                            }, configurable: true});
+                            if (fileApiXHR.response !== undefined) {
+                                Object.defineProperty(xhr, 'response', {get: function () {
+                                    return fileApiXHR.response
+                                }});
+                            }
+                            var resp = fileApiXHR.responseText || (err && fileApiXHR.status == 0 && err !== 'abort' ? err : undefined);
+                            Object.defineProperty(xhr, 'responseText', {get: function () {
+                                return resp
+                            }, configurable: true});
+                            Object.defineProperty(xhr, 'response', {get: function () {
+                                return resp
+                            }, configurable: true});
+                            if (err) Object.defineProperty(xhr, 'err', {get: function () {
+                                return err
+                            }, configurable: true});
+                            try {
+                                if (xhr.onload) {
+                                    // for angular 1.3.x
+                                    xhr.onload();
+                                } else if (xhr.onreadystatechange) {
+                                    // for angular 1.2.x
+                                    xhr.onreadystatechange();
+                                }
+                            } catch (error) {
+                                // catch xhr undefined error
+                            }
 						},
 						fileprogress: function(e) {
 							e.target = xhr;
